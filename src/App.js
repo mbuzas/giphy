@@ -4,6 +4,7 @@ import GifContext from "./context";
 /* eslint-disable no-undef */
 import "./App.scss";
 import GifItem from "./components/GifItem";
+import Header from "./components/Header";
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -39,6 +40,12 @@ const App = () => {
           [...response.data.data].slice().sort((a, b) => {
             return new Date(a.import_datetime) - new Date(b.import_datetime);
           });
+
+        lockedGifs && lockedGifs.map(lockedItem => {
+          console.log([...sortedData, sortedData[lockedItem.indexInArray] === lockedItem]);
+        });
+
+
         // sortedData.map(item => {
         //   console.log(item.import_datetime);
         // });
@@ -67,13 +74,16 @@ const App = () => {
   return (
     <GifContext.Provider value={initialState}>
       <div className="App">
-        {data && data.map(item => {
-          return (
+        <Header />
+        <main>
+          {data && data.map(item => {
+            return (
 
-            <GifItem item={item} key={getRandomKey()} ></GifItem>
+              <GifItem item={item} key={getRandomKey()} ></GifItem>
 
-          );
-        })}
+            );
+          })}
+        </main>
       </div>
     </GifContext.Provider>
   );

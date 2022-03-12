@@ -1,4 +1,44 @@
-img {
-    height: 200px;
-    width: 300px;
+.gif-item {
+    border: transparent;
+    position: relative;
+    cursor: pointer;
+    .lock-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 1em;
+        color: #fff;
+
+        display: none;
+        align-items: center;
+
+        p {
+            font-size: 12px;
+            margin: 0;
+        }
+
+        img {
+            width: 32px;
+            height: 32px;
+
+        }
+    }
+
+
+
+    img {
+        height: 260px;
+        width: 335px;
+
+
+    }
+}
+
+.gif-item:hover {
+
+    outline: 4px solid rgb(67, 39, 245);
+}
+
+.gif-item:hover .lock-info {
+    display: flex;
 }
