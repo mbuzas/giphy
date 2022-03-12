@@ -7,15 +7,13 @@ const GifItem = ({ item }) => {
     const { lockedGifs, setLockedGifs, data } = useContext(GifContext);
 
     const handleOnClick = () => {
-        // console.log(item.images);
 
-        const lockedObject = {
+        const newObj = {
             indexInArray: data.indexOf(item),
             item: item
         };
-        console.log(lockedObject);
-        lockedGifs.filter(item => console.log(item) ? console.log("yra toks") : console.log("nera tokio"));
-        setLockedGifs([...lockedGifs, lockedObject]);
+        lockedGifs.map(item => item.item.id === newObj.item.id ? console.log("yra toks") : console.log("nera tokio"));
+        setLockedGifs([...lockedGifs, newObj]);
         console.log(lockedGifs);
     };
     return (
