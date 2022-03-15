@@ -13,33 +13,30 @@ const GifItem = ({ item }) => {
         lockedGifs.filter(obj => obj.item.id === item.id ? setIsLocked(true) : "");
     }, [lockedGifs]);
 
+    const addSelectedGifToMemory = (selectedGif) => {
+        lockedGifs.map(item => item.item.id === selectedGif.item.id ?
+            setLockedGifs(lockedGifs.filter(item => item.item.id !== selectedGif.item.id))
+            :
+            console.log(""),
+            setLockedGifs([...lockedGifs, selectedGif]),
+        );
+    };
+
     const handleOnClick = () => {
         setIsLocked(!isLocked);
-        const newObj = {
+        const selectedGif = {
             indexInArray: data.indexOf(item),
             item: item
         };
-        lockedGifs.map(item => item.item.id === newObj.item.id ?
-            setLockedGifs(lockedGifs.filter(item => item.item.id !== newObj.item.id))
-            :
-            console.log(""),
-            setLockedGifs([...lockedGifs, newObj]),
-
-        );
-
+        addSelectedGifToMemory(selectedGif);
     };
+
     return (
         <div className="gif-item" onClick={handleOnClick} >
             <img src={itemUrl} alt="" />
             <div className="lock-info">
-                {isLocked ?
-                    <img src={unlock} alt="" />
-                    :
-                    <>
-                        <img src={lock} alt="" />
-                        <p>Click to Lock</p>
-                    </>}
-
+                <img src={isLocked ? unlock : lock} alt="" />
+                <p>{isLocked ? "Unlock" : "Click to Lock"}</p>
             </div>
         </div>
     );

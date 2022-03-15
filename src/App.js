@@ -8,7 +8,7 @@ import Header from "./components/Header";
 
 const App = () => {
   const [data, setData] = useState([]);
-  const [query, setQuery] = useState("lol");
+  const [query, setQuery] = useState("lithuania");
 
   const storage = JSON.parse(localStorage.getItem("lockedItems"));
   const [lockedGifs, setLockedGifs] = useState(storage || []);
@@ -17,18 +17,11 @@ const App = () => {
     return Math.floor(Math.random() * 1000000);
   };
 
-
   const getRandomQuery = () => {
     return Math.floor(Math.random() * 100);
   };
 
-  const params = {
-    params: {
-      q: query,
-      api_key: process.env.REACT_APP_GIPHY_API_KEY,
-      limit: 15
-    }
-  };
+
   // const sortGifsByImportDate = (response) => {
   //   [...response.data.data].slice().sort((a, b) => {
   //     new Date(a.import_datetime) - new Date(b.import_datetime);
@@ -39,6 +32,14 @@ const App = () => {
     lockedGifs.map(lockedItem => {
       [...sortedData, sortedData[lockedItem.indexInArray.toString()] = lockedItem.item];
     });
+  };
+
+  const params = {
+    params: {
+      q: query,
+      api_key: process.env.REACT_APP_GIPHY_API_KEY,
+      limit: 15
+    }
   };
 
   const fetchGifs = () => {
