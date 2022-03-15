@@ -21,13 +21,6 @@ const App = () => {
     return Math.floor(Math.random() * 100);
   };
 
-
-  // const sortGifsByImportDate = (response) => {
-  //   [...response.data.data].slice().sort((a, b) => {
-  //     new Date(a.import_datetime) - new Date(b.import_datetime);
-  //   });
-  // };
-
   const switchGifsWithLockedOnes = (sortedData) => {
     lockedGifs.map(lockedItem => {
       [...sortedData, sortedData[lockedItem.indexInArray.toString()] = lockedItem.item];
@@ -49,9 +42,6 @@ const App = () => {
         const sortedData = [...response.data.data].slice().sort((a, b) => {
           return new Date(a.import_datetime) - new Date(b.import_datetime);
         });
-        // sortedData.map(item => {
-        //   console.log(item.import_datetime);
-        // });
         switchGifsWithLockedOnes(sortedData);
         setData(sortedData);
       }).catch(function (error) {
