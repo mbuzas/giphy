@@ -46,11 +46,12 @@ const App = () => {
     const url = "http://api.giphy.com/v1/gifs/search";
     axios.get(url, params)
       .then(function (response) {
-        // const sortedData = sortGifsByImportDate(response);
         const sortedData = [...response.data.data].slice().sort((a, b) => {
-          new Date(a.import_datetime) - new Date(b.import_datetime);
+          return new Date(a.import_datetime) - new Date(b.import_datetime);
         });
-
+        // sortedData.map(item => {
+        //   console.log(item.import_datetime);
+        // });
         switchGifsWithLockedOnes(sortedData);
         setData(sortedData);
       }).catch(function (error) {

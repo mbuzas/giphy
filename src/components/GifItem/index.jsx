@@ -10,14 +10,13 @@ const GifItem = ({ item }) => {
     const [isLocked, setIsLocked] = useState(false);
 
     useEffect(() => {
-        lockedGifs.filter(obj => obj.item.id === item.id ? setIsLocked(true) : "");
+        lockedGifs.filter(obj => (obj.item.id === item.id) ? setIsLocked(true) : false);
     }, [lockedGifs]);
 
     const addSelectedGifToMemory = (selectedGif) => {
-        lockedGifs.map(item => item.item.id === selectedGif.item.id ?
-            setLockedGifs(lockedGifs.filter(item => item.item.id !== selectedGif.item.id))
-            :
-            console.log(""),
+        lockedGifs.map(item => (item.item.id === selectedGif.item.id) ?
+            setLockedGifs(lockedGifs.filter(item => (item.item.id !== selectedGif.item.id)))
+            : false,
             setLockedGifs([...lockedGifs, selectedGif]),
         );
     };

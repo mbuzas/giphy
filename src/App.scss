@@ -4,6 +4,10 @@
     height: 100vh;
 
     main {
+        @media (max-width: 576px) {
+            justify-content: center;
+        }
+
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
