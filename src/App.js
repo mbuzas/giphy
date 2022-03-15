@@ -9,15 +9,13 @@ import Header from "./components/Header";
 const App = () => {
   const [data, setData] = useState([]);
   const [query, setQuery] = useState("lol");
-  if (process.env.NODE_ENV !== "production") {
-    console.log(process.env.GIPHY_API_KEY);
-  }
+
+  const storage = JSON.parse(localStorage.getItem("lockedItems"));
+  const [lockedGifs, setLockedGifs] = useState(storage || []);
 
   const getRandomKey = () => {
     return Math.floor(Math.random() * 1000000);
   };
-
-  const [lockedGifs, setLockedGifs] = useState([]);
 
 
   const getRandomQuery = () => {
@@ -28,27 +26,31 @@ const App = () => {
     params: {
       q: query,
       api_key: process.env.REACT_APP_GIPHY_API_KEY,
-      limit: 12,
-      responseType: "text/html",
+      limit: 15
     }
   };
+  // const sortGifsByImportDate = (response) => {
+  //   [...response.data.data].slice().sort((a, b) => {
+  //     new Date(a.import_datetime) - new Date(b.import_datetime);
+  //   });
+  // };
+
+  const switchGifsWithLockedOnes = (sortedData) => {
+    lockedGifs.map(lockedItem => {
+      [...sortedData, sortedData[lockedItem.indexInArray.toString()] = lockedItem.item];
+    });
+  };
+
   const fetchGifs = () => {
     const url = "http://api.giphy.com/v1/gifs/search";
     axios.get(url, params)
       .then(function (response) {
-        const sortedData =
-          [...response.data.data].slice().sort((a, b) => {
-            return new Date(a.import_datetime) - new Date(b.import_datetime);
-          });
-
-        lockedGifs && lockedGifs.map(lockedItem => {
-          console.log([...sortedData, sortedData[lockedItem.indexInArray] === lockedItem]);
+        // const sortedData = sortGifsByImportDate(response);
+        const sortedData = [...response.data.data].slice().sort((a, b) => {
+          new Date(a.import_datetime) - new Date(b.import_datetime);
         });
 
-
-        // sortedData.map(item => {
-        //   console.log(item.import_datetime);
-        // });
+        switchGifsWithLockedOnes(sortedData);
         setData(sortedData);
       }).catch(function (error) {
         console.error(error);
@@ -64,12 +66,16 @@ const App = () => {
     document.onkeydown = handleKeyDown;
   }, [query]);
 
+  useEffect(() => {
+    localStorage.setItem("lockedItems", JSON.stringify(lockedGifs));
+  }, [lockedGifs]);
+
   const initialState = {
     lockedGifs: lockedGifs,
     setLockedGifs,
     data: data,
+    handleKeyDown
   };
-
 
   return (
     <GifContext.Provider value={initialState}>
@@ -78,9 +84,7 @@ const App = () => {
         <main>
           {data && data.map(item => {
             return (
-
               <GifItem item={item} key={getRandomKey()} ></GifItem>
-
             );
           })}
         </main>

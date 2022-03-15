@@ -1,5 +1,8 @@
+import { useContext } from "react";
+import GifContext from "../../context";
 import "./Header.scss";
 const Header = () => {
+    const { handleKeyDown } = useContext(GifContext);
     return (
         <header>
             <p>TESTHY</p>
@@ -7,7 +10,7 @@ const Header = () => {
                 <span className="alert">i</span>
                 Press <span className="underline">spacebar</span> to shuffle or
             </div>
-            <button>Click here</button>
+            <button onClick={handleKeyDown}>Click here</button>
         </header>
     );
 };

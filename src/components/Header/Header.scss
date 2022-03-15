@@ -26,6 +26,13 @@ header {
         color: #fff;
         height: 30px;
         width: auto;
+        cursor: pointer;
+
+
+    }
+
+    button:hover {
+        outline: 1px rgb(129, 129, 129) solid;
     }
 
     p {
