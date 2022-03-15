@@ -7,8 +7,6 @@ header {
     }
 
     display: flex;
-
-
     min-height: 40px;
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
@@ -27,8 +25,6 @@ header {
         height: 30px;
         width: auto;
         cursor: pointer;
-
-
     }
 
     button:hover {
@@ -45,10 +41,13 @@ header {
 
     .info-right {
         @media (max-width: 576px) {
-            // flex-direction: column;
+            margin-left: unset;
+            margin-right: unset;
         }
 
+        margin-left: auto;
         display: flex;
+        margin-right: 1em;
         color: #636465;
 
         .alert {

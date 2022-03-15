@@ -63,7 +63,12 @@ const App = () => {
 
   useEffect(() => {
     fetchGifs();
-    document.onkeydown = handleKeyDown;
+    document.onkeydown = (e) => {
+      if (e.code === "Space" && e.target == document.body) {
+        e.preventDefault();
+        handleKeyDown();
+      }
+    };
   }, [query]);
 
   useEffect(() => {
